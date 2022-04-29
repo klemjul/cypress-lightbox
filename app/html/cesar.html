@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+        html {
+            font-size: 20px;
+            background-color: #e3e3ea;
+            font-family: 'Roboto', sans-serif !important;
+            font-weight: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            padding: 0;
+            font-size: 1rem;
+            font-weight: normal;
+
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+
+        }
+
+        span {
+            color: #97a4b0;
+            font-size: 0.8rem;
+        }
+
+        input,
+        textarea {
+            padding: 0.4rem;
+            width: 100%;
+            border: 0px;
+            background-color: #e3e3ea;
+            resize: none;
+        }
+
+        html {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        button {
+            margin-top: 0.7rem;
+            color: white;
+            background-color: #1e40af;
+            border: 0px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 1.5rem 5rem;
+        }
+
+        #caesar-form {
+            padding: 2rem 2rem;
+            width: 40%;
+            margin: auto;
+            background-color: white;
+            border-radius: 0.3rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <form id="caesar-form">
+        <div>
+            <h1>Cesar Cypher</h1>
+            <span>Vanilla JS</span>
+        </div>
+        <br />
+
+        <div>
+            <h2 style="font-weight: 500;margin-bottom: 0.3rem;">Cyper Key</h2>
+            <input id="cypher-key" type="text" placeholder="3">
+            <textarea id="cypher-text" style="margin-top: 0.7rem;" name="" id="" cols="30" rows="10"></textarea>
+        </div>
+        <button id="cypher-btn">Cypher</button>
+        <div id="cypher-result" style="margin-top: 0.7rem;font-size: 1.1rem;font-weight: 500;color: #0a986c;">Result
+        </div>
+    </form>
+
+    <script>
+        const isUpperCase = c => {
+            return c === c.toUpperCase();
+        };
+
+        const cesar = (shift, string) => {
+            let decipher = '';
+            [...string].forEach(c => {
+                decipher += isUpperCase(c)
+                    ? String.fromCharCode((c.charCodeAt() + shift - 65) % 26 + 65)
+                    : String.fromCharCode((c.charCodeAt() + shift - 97) % 26 + 97);
+            });
+            return decipher;
+        };
+
+
+        document.getElementById("cypher-btn").addEventListener('click', (event) => {
+            event.preventDefault()
+            let cypherKey = parseInt(document.getElementById("cypher-key").value)
+            cypherKey = isNaN(cypherKey) ? 0 : cypherKey
+            let cypherText = document.getElementById("cypher-text").value
+            console.log(cypherKey, cypherText)
+            document.getElementById("cypher-result").innerText = cesar(cypherKey, cypherText)
+        })
+    </script>
+</body>
+
+</html>
